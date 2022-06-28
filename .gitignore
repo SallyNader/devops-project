@@ -1,0 +1,3 @@
+/terraform/IAC/mykey.pem
+/terraform/IAC/.terraform*
+/terraform/IAC/terraform.tfstate*
