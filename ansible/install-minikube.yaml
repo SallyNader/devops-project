@@ -1,0 +1,69 @@
+- name: Install Minikube on Linux
+  hosts: localhost
+  become: true
+  tasks:
+    - name: checking updates
+      yum:
+        security: yes
+        state: latest
+      check_mode: yes
+      register: yum_output
+      become: true
+
+    - name: Install packages
+      yum:
+        name: '{{ item }}'
+        state: present
+        update_cache: true
+      with_items:
+        - libvirt 
+        - qemu-kvm
+        - virt-install
+        - virt-top
+        - libguestfs-tools 
+        - bridge-utils 
+
+    - name: Enables libvirtd service  
+      service:
+        name: libvirtd
+        enabled: yes
+  
+
+    - name: Start libvirtd service
+      service:
+        name: libvirtd
+        state: started
+        
+
+    - name: Add your user to the libvirt group
+      user:
+        name: ec2-user
+        groups: libvirt
+        append: true
+      
+
+
+    - name: Restart libvirt service
+      service:
+        name: libvirtd
+        state: restarted
+      
+
+    - name: download minikube
+      get_url: url='https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64' dest='{{ playbook_dir }}'    
+
+    - name: use the chmod command to give the minikube file executive permission
+      file: dest={{playbook_dir}}/minikube-linux-amd64 mode=a+x
+
+    - name:  move the minikube file to the /usr/local/bin directory
+      command: mv {{playbook_dir}}/minikube-linux-amd64 /usr/local/bin/minikube
+
+    - name: download kubectl
+      get_url: url='https://storage.googleapis.com/kubernetes-release/release/v1.24.1/bin/linux/amd64/kubectl' dest='{{playbook_dir}}'
+
+    - name: use the chmod command to give the kubectl file executive permission
+      file: dest={{playbook_dir}}/kubectl mode=a+x
+
+    - name:  move the kubectl file to the /usr/local/bin directory
+      command: mv {{playbook_dir}}/kubectl /usr/local/bin/
+

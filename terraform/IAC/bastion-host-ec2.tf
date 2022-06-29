@@ -3,7 +3,7 @@ resource "aws_instance" "bastion" {
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.bastion-host.id]
   subnet_id              = aws_subnet.public-subnet.id
-  availability_zone = "us-east-1a"
+  availability_zone      = "us-east-1a"
 
   tags = {
     name = "bastion-host"

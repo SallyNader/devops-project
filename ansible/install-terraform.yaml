@@ -1,0 +1,21 @@
+- name: Install terraform
+  hosts: localhost
+  tasks:
+    - name: checking updates
+      yum:
+        security: yes
+        state: latest
+      check_mode: yes
+      register: yum_output
+      become: true
+
+
+    - name: Download Terraform package  
+      get_url: url='https://releases.hashicorp.com/terraform/0.12.17/terraform_0.12.17_linux_amd64.zip' dest={{playbook_dir}}
+      become: true
+
+    - name: unzip the package on /usr/local/bin
+      ansible.builtin.unarchive:
+        src: '{{playbook_dir}}/terraform_0.12.17_linux_amd64.zip'
+        dest: /usr/local/bin/
+        become: true

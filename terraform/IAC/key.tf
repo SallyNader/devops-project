@@ -1,7 +1,7 @@
 # Generate new private key
 resource "tls_private_key" "key" {
   algorithm = "RSA"
-   rsa_bits  = 4096
+  rsa_bits  = 4096
 }
 
 # Generate a key-pair with above key

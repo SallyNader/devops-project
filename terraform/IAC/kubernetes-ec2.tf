@@ -3,13 +3,16 @@ resource "aws_instance" "kubernetes" {
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.kubernetes.id]
   subnet_id              = aws_subnet.private-subnet.id
-  
+
   tags = {
     name = "kubernetes"
   }
   key_name = aws_key_pair.deployer.key_name
 
-  # create a directory to mount our efs volume to
+   user_data = <<EOF
+    #!/bin/bash
+       sudo amazon-linux-extras install ansible2
+    EOF
 
 }
 
@@ -35,3 +38,6 @@ resource "aws_security_group" "kubernetes" {
 
 }
 
+output "kubernetes-private-ip" {
+  value = aws_instance.kubernetes.private_ip
+}
