@@ -46,13 +46,14 @@ pipeline {
                     dir('terraform/IAC') {
                     sh """
                      chmod 400 mykey.pem
-                     sudo scp -o StrictHostKeyChecking=no -rp -i mykey.pem $WORKSPACE ec2-user@${BASTION_HOST_IP}:/home/ec2-user/devops-project
+                     scp -o StrictHostKeyChecking=no -rp -i mykey.pem $WORKSPACE ec2-user@${BASTION_HOST_IP}:/home/ec2-user/devops
                     chmod 400 mykey.pem
                     ssh -i mykey.pem  ec2-user@${BASTION_HOST_IP} -o StrictHostKeyChecking=no '
-
-                        scp -o StrictHostKeyChecking=no -rp -i /home/ec2-user/devops-project/terraform/IAC/mykey.pem  /home/ec2-user/devops-project ec2-user@${KUBERNATES_IP}:/home/ec2-user/devops-project
-                        ssh -i /home/ec2-user/devops-project/terraform/IAC/mykey.pem  ec2-user@${KUBERNATES_IP} -o StrictHostKeyChecking=no '
-                           exit
+                    chmod 777 devops
+                        scp -o StrictHostKeyChecking=no -rp -i /home/ec2-user/devops/terraform/IAC/mykey.pem  /home/ec2-user/devops ec2-user@${KUBERNATES_IP}:/home/ec2-user/devops
+                        ssh -i /home/ec2-user/devops/terraform/IAC/mykey.pem  ec2-user@${KUBERNATES_IP} -o StrictHostKeyChecking=no '
+                       chmod 777 devops
+                       exit
                         '
                     exit
                     '
