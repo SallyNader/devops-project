@@ -53,7 +53,7 @@ pipeline {
                         scp -o StrictHostKeyChecking=no -rp -i /home/ec2-user/devops-auto/terraform/IAC/mykey.pem  /home/ec2-user/devops-auto ec2-user@${KUBERNATES_IP}:/home/ec2-user/devops-auto
                         ssh -i /home/ec2-user/devops-auto/terraform/IAC/mykey.pem  ec2-user@${KUBERNATES_IP} -o StrictHostKeyChecking=no '
                        ls -la
-                       chmod 777 /home/ec2-user/devops-auto
+                      sudo chmod 777 ~/devops-auto
                        exit
                         '
                     exit
