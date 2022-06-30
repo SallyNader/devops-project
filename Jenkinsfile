@@ -52,10 +52,9 @@ pipeline {
 
                         scp -o StrictHostKeyChecking=no -rp -i /home/ec2-user/devops-project/terraform/IAC/mykey.pem  /home/ec2-user/devops-project ec2-user@${KUBERNATES_IP}:/home/ec2-user/devops-project2
                         ssh -i /home/ec2-user/devops-project/terraform/IAC/mykey.pem  ec2-user@${KUBERNATES_IP} -o StrictHostKeyChecking=no '
-                             ls -la
-                             echo "inside kubernetes"
+                           exit
                         '
-                     ls -la
+                    exit
                     '
 
                 """
