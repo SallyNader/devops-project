@@ -52,6 +52,7 @@ pipeline {
                     chmod 777 devops
                         scp -o StrictHostKeyChecking=no -rp -i /home/ec2-user/devops/terraform/IAC/mykey.pem  /home/ec2-user/devops ec2-user@${KUBERNATES_IP}:/home/ec2-user/devops
                         ssh -i /home/ec2-user/devops/terraform/IAC/mykey.pem  ec2-user@${KUBERNATES_IP} -o StrictHostKeyChecking=no '
+                       ls -la
                        chmod 777 devops
                        exit
                         '
