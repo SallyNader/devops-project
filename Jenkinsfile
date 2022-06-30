@@ -50,9 +50,10 @@ pipeline {
                     chmod 400 mykey.pem
                     ssh -i mykey.pem  ec2-user@${BASTION_HOST_IP} -o StrictHostKeyChecking=no '
 
-                        scp -o StrictHostKeyChecking=no -rp -i /home/ec2-user/devops-project/terraform/IAC/mykey.pem  /home/ec2-user/devops-project ec2-user@${KUBERNATES_IP}:/home/ec2-user/devops-project
+                        scp -o StrictHostKeyChecking=no -rp -i /home/ec2-user/devops-project/terraform/IAC/mykey.pem  /home/ec2-user/devops-project ec2-user@${KUBERNATES_IP}:/home/ec2-user/devops-project2
                         ssh -i /home/ec2-user/devops-project/terraform/IAC/mykey.pem  ec2-user@${KUBERNATES_IP} -o StrictHostKeyChecking=no '
-                              echo "inside kubernetes"
+                             ls -la
+                             echo "inside kubernetes"
                         '
                      ls -la
                     '
