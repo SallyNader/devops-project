@@ -46,7 +46,7 @@ pipeline {
                     dir('terraform/IAC') {
                     sh """
                      
-                    sudo scp -o StrictHostKeyChecking=no -rp -i mykey.pem $WORKSPACE/kubernetes/workspace/kubernetes ec2-user@${BASTION_HOST_IP}:/home/ec2-user/devops-project
+                     scp -o StrictHostKeyChecking=no -rp -i mykey.pem $WORKSPACE ec2-user@${BASTION_HOST_IP}:/home/ec2-user/project
 
                 """
                     }
