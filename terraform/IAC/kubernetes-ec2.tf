@@ -26,14 +26,14 @@ resource "aws_security_group" "kubernetes" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [aws_instance.bastion.cidr_blocks]
+    security_groups = [aws_security_group.bastion-host.id]
   }
   ingress {
     description = "NFS"
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    cidr_blocks = [ "0.0.0.0/0" ]
+    security_groups = [aws_security_group.bastion-host.id]
   }
 
 }
