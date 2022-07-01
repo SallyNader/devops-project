@@ -10,7 +10,7 @@ resource "aws_efs_file_system" "efs" {
 resource "aws_efs_mount_target" "mount" {
   file_system_id  = aws_efs_file_system.efs.id
   subnet_id       = aws_subnet.private-subnet.id
-  security_groups = [aws_security_group.kubernetes.id]
+  security_groups = [aws_security_group.bastion-host.id]
 }
 
 resource "null_resource" "null_vol_attach"  {
