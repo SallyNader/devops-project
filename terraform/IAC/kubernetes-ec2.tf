@@ -1,6 +1,6 @@
 resource "aws_instance" "kubernetes" {
   ami                    = "ami-0cff7528ff583bf9a"
-  instance_type          = "t2.micro"
+  instance_type          = "t2.medium"
   vpc_security_group_ids = [aws_security_group.kubernetes.id]
   subnet_id              = aws_subnet.private-subnet.id
 
