@@ -25,7 +25,7 @@ resource "null_resource" "null_vol_attach"  {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo mount -t efs -o tls ${aws_efs_file_system.efs.id}:/ efs"
+      "sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 10.1.1.5:/ efs"
      
     ]
   }
