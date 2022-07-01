@@ -22,7 +22,13 @@ resource "aws_security_group" "bastion-host" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+ingress {
+    description = "NFS"
+    from_port   = 8123
+    to_port     = 8123
+    protocol    = "tcp"
+    cidr_blocks = [ "0.0.0.0/0" ]
+  }
   ingress {
     description = "Allow http from everywhere"
     from_port   = 80

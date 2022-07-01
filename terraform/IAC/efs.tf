@@ -13,15 +13,22 @@ resource "aws_efs_mount_target" "mount" {
   security_groups = [aws_security_group.kubernetes.id]
 }
 
-# # Creating Mount Point for EFS
-# resource "null_resource" "configure_nfs" {
-#   depends_on = [aws_efs_mount_target.mount]
-#   connection {
-#     type        = "ssh"
-#     user        = "ec2-user"
-#     private_key = tls_private_key.my_key.private_key_pem
-#     host        = aws_instance.kubernetes.public_ip
-#   }
-# }
-
+resource "null_resource" "null_vol_attach"  {
+  depends_on = [
+    aws_efs_mount_target.mount,
+  ]
+  connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    private_key =  tls_private_key.key.private_key_pem
+    host     = aws_instance.bastion.public_ip
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod ugo+rw /etc/fstab",
+      "sudo echo '${aws_efs_file_system.efs.id}:/ /project efs tls,_netdev' >> /etc/fstab",
+      "sudo mount -a -t efs,nfs4 defaults",
+    ]
+  }
+}
 

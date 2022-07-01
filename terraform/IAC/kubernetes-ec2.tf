@@ -29,11 +29,11 @@ resource "aws_security_group" "kubernetes" {
     cidr_blocks = [aws_vpc.main.cidr_block]
   }
   ingress {
-    description = "EFS mount target"
-    from_port   = 2049
-    to_port     = 2049
+    description = "NFS"
+    from_port   = 8123
+    to_port     = 8123
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [ "0.0.0.0/0" ]
   }
 
 }

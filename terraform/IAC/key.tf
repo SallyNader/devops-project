@@ -13,6 +13,7 @@ resource "aws_key_pair" "deployer" {
 
 resource "local_file" "ssh_key" {
   filename = "mykey.pem"
+  file_permission = "0400"
   content = tls_private_key.key.private_key_pem
 }
 
