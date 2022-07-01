@@ -26,12 +26,12 @@ resource "aws_security_group" "kubernetes" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.main.cidr_block]
+    cidr_blocks = [aws_instance.bastion.cidr_blocks]
   }
   ingress {
     description = "NFS"
-    from_port   = 8123
-    to_port     = 8123
+    from_port   = 2049
+    to_port     = 2049
     protocol    = "tcp"
     cidr_blocks = [ "0.0.0.0/0" ]
   }
