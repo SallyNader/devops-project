@@ -25,8 +25,8 @@ resource "null_resource" "null_vol_attach"  {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo mkdir -m 777 /project",
-      "sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 10.1.1.5:/ /project"
+      "sudo mkdir /project",
+      "sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${aws_efs_file_system.efs.dns_name}:/ /project"
      
     ]
   }
