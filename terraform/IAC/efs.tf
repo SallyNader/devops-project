@@ -25,7 +25,7 @@ resource "null_resource" "null_vol_attach"  {
   }
   provisioner "remote-exec" {
     inline = [
-      "mkdir -m 777 /project",
+      "sudo mkdir -m 777 /project",
       "sudo chmod ugo+rw /etc/fstab",
       "sudo echo '${aws_efs_file_system.efs.id}:/ /project efs tls,_netdev' >> /etc/fstab",
       "sudo mount -a -t efs,nfs4 defaults",
