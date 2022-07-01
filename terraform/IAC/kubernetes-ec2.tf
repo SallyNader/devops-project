@@ -28,7 +28,7 @@ resource "aws_security_group" "kubernetes" {
     protocol    = "tcp"
     security_groups = [aws_security_group.bastion-host.id]
   }
-  ingress {
+  egress {
     description = "NFS"
     from_port   = 2049
     to_port     = 2049
