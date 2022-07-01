@@ -17,6 +17,8 @@
         update_cache: true
       with_items:
         - libvirt 
+        - docker
+        - conntrack
         - qemu-kvm
         - virt-install
         - virt-top
