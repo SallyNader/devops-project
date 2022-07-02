@@ -6,7 +6,7 @@ resource "aws_instance" "bastion" {
   availability_zone      = "us-east-1a"
 
   tags = {
-    name = "bastion-host"
+    Name = "bastion-host"
   }
   key_name = aws_key_pair.deployer.key_name
 }

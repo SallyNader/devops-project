@@ -5,7 +5,7 @@ resource "aws_instance" "kubernetes" {
   subnet_id              = aws_subnet.private-subnet.id
 
   tags = {
-    name = "kubernetes"
+    Name = "kubernetes"
   }
   key_name = aws_key_pair.deployer.key_name
 

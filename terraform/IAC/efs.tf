@@ -25,8 +25,8 @@ resource "null_resource" "attach_efs_bastion" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo mkdir /project",
-      "sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${aws_efs_file_system.efs.dns_name}:/ /project"
+      "sudo mkdir /home/ec2-user/project",
+      "sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${aws_efs_file_system.efs.dns_name}:/ /home/ec2-user/project"
     ]
   }
 }

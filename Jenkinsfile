@@ -45,7 +45,7 @@ pipeline {
                 steps {
                     dir('terraform/IAC') {
                     sh """
-                     
+                     chmod 400 mykey.pem 
                      scp -o StrictHostKeyChecking=no -rp -i mykey.pem $WORKSPACE ec2-user@${BASTION_HOST_IP}:/home/ec2-user/project
 
                 """
