@@ -19,15 +19,3 @@ spec:
           ports:
             - containerPort: 27017
          
-          volumeMounts:
-            - name: mongo-volume
-              mountPath: /project/mongodb
-  volumeClaimTemplates:
-  - metadata:
-      name: mongo-volume
-    spec:
-      accessModes: 
-        - ReadWriteMany
-      resources:
-        requests:
-          storage: 5Mi

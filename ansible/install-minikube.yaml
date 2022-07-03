@@ -36,6 +36,10 @@
         name: libvirtd
         state: started
         
+    - name: Start docker service
+      service:
+        name: docker
+        state: started
 
     - name: Add your user to the libvirt group
       user:
@@ -49,7 +53,11 @@
       service:
         name: libvirtd
         state: restarted
-      
+
+    - name: Run docker without sudo permission
+      ansible.builtin.file:
+        path: /var/run/docker.sock
+        mode: '0777'  
 
     - name: download minikube
       get_url: url='https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64' dest='{{ playbook_dir }}'    
@@ -68,4 +76,7 @@
 
     - name:  move the kubectl file to the /usr/local/bin directory
       command: mv {{playbook_dir}}/kubectl /usr/local/bin/
+
+    - name: start minikube  
+      command: minikube start
 

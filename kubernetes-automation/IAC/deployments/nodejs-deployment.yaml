@@ -19,14 +19,14 @@ spec:
       - name: nodejs
         image: node
         command: ["/bin/sh"]
-        args: ["-c", "cd /app && npm start"]
+        args: ["-c", "cd /project && npm install && npm start"]
         stdin: true
         ports:
           - containerPort: 3000
         volumeMounts:
-        - mountPath: /project/efs/devops-project/kubernetes-automation
+        - mountPath: /project
           name: app-volume
       volumes:
       - name: app-volume
-        persistentVolumeClaim:
-          claimName: pvc-nodejs              
+        hostPath:
+          path: /home/sally/Documents/final/kubernetes-automation      
