@@ -2,7 +2,8 @@
 pipeline {
     agent any
     environment {
-        TOKEN = '2222222222'
+        SONARQUBE_TOKEN = credentials('sonarqube_token')
+        SONARQUBE_URL = 'http://localhost:9095'
     }
     stages {
         // stage('terraform init') {
@@ -58,6 +59,8 @@ pipeline {
          stage("sonarqube analysis") {
             steps {
                 dir('kubernetes-automation') {
+                   sh " sed -i -e 's|URL|${SONARQUBE_URL}|; s|TOKEN|${SONARQUBE_TOKEN}|' sonar-project.properties"
+
                     nodejs(nodeJSInstallationName: 'nodejs') {
                         sh "npm install"
                         withSonarQubeEnv("sonar") {
