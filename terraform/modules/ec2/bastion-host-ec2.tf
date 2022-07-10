@@ -2,7 +2,7 @@ resource "aws_instance" "bastion" {
   ami                    = "ami-0cff7528ff583bf9a"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.bastion-host.id]
-  subnet_id              = aws_subnet.public-subnet.id
+  subnet_id              = module.network.public_subnet_id
   availability_zone      = "us-east-1a"
 
   tags = {
@@ -14,7 +14,7 @@ resource "aws_instance" "bastion" {
 resource "aws_security_group" "bastion-host" {
   name        = "bastion-host Allow web traffic"
   description = "Allow Web inbound and outbound traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.network.main_vpc_id
   ingress {
     description = "Allow ssh from everywhere"
     from_port   = 22
@@ -51,12 +51,4 @@ resource "aws_security_group" "bastion-host" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-
 }
-
-
-output "bastion-host-public_ip" {
-  value = aws_instance.bastion.public_ip
-}
-

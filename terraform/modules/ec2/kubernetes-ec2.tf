@@ -1,8 +1,8 @@
 resource "aws_instance" "kubernetes" {
   ami                    = "ami-0cff7528ff583bf9a"
-  instance_type          = "t2.medium"
+  instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.kubernetes.id]
-  subnet_id              = aws_subnet.private-subnet.id
+  subnet_id              = module.network.private_subnet_id
 
   tags = {
     Name = "kubernetes"
@@ -19,7 +19,7 @@ resource "aws_instance" "kubernetes" {
 resource "aws_security_group" "kubernetes" {
   name        = "kubernetes allow bastion host"
   description = "Allow only bastion host to access kubernetes instance"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.network.main_vpc_id
 
   ingress {
     description     = "Allow ssh from bastion host"
@@ -43,6 +43,4 @@ resource "aws_security_group" "kubernetes" {
   }
 }
 
-output "kubernetes-private-ip" {
-  value = aws_instance.kubernetes.private_ip
-}
+

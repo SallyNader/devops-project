@@ -1,5 +1,5 @@
-terraform/IAC/mykey.pem
-terraform/IAC/.terraform*
-terraform/IAC/terraform.tfstate*
+terraform/mykey.pem
+terraform/.terraform*
+terraform/terraform.tfstate*
 kubernetes-automation/node_modules/
 kubernetes-automation/package-lock.json
